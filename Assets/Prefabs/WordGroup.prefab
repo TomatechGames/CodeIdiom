@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5615746920271091986}
   - component: {fileID: 7337024371167357778}
   m_Layer: 5
-  m_Name: WordSlot
+  m_Name: WordGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

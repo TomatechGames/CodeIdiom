@@ -11,6 +11,6 @@ namespace TomatechGames.CodeIdiom
 
 
         public abstract void OnSlotClicked(LetterSlot clickedSlot);
-        public abstract void TransferLetterToContainer(LetterInstance letter);
+        public abstract void TransferLetterToThisContainer(LetterInstance letter);
     }
 }

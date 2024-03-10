@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace TomatechGames.CodeIdiom
 {
-    public class Config : ScriptableObject
+    //Intended for changing overall game rules based on results from player testing
+    public class ConfigContainer : ScriptableObject
     {
         public readonly bool lockSlotsToInitialLetter;
         public readonly bool clearedSlotsGoToInitialSlot;

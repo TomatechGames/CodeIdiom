@@ -6,9 +6,15 @@ namespace TomatechGames.CodeIdiom
 {
     public class LetterDeck : LetterSlotContainer
     {
+        [SerializeField]
+        ConfigContainer config;
+        ConfigContainer Config => config ? config : (config = FindObjectOfType<ConfigContainer>());
+
         PhraseController phraseController;
         public void LinkToPhraseController(PhraseController phraseController) => this.phraseController = phraseController;
 
+        //creates slots with initial letters based on the chars in jumbledLetters
+        //(should be called BEFORE the initialise method of phraseController)
         public void Initialise(char[] jumbledLetters)
         {
 
@@ -16,12 +22,19 @@ namespace TomatechGames.CodeIdiom
 
         public override void OnSlotClicked(LetterSlot clickedSlot)
         {
-            throw new System.NotImplementedException();
+            if (clickedSlot.SlottedLetter)
+                phraseController.TransferLetterToThisContainer(clickedSlot.SlottedLetter);
         }
 
-        public override void TransferLetterToContainer(LetterInstance letter)
+        public override void TransferLetterToThisContainer(LetterInstance letter)
         {
-            throw new System.NotImplementedException();
+            if (Config.clearedSlotsGoToInitialSlot || Config.lockSlotsToInitialLetter)
+                letter.InitialSlot.TrySetOrSwapSlottedLetter(letter);
+            else
+            {
+                var emptySlot = FirstSlot.GetNextEmptySlot();
+                emptySlot.Value.slot.TrySetOrSwapSlottedLetter(letter);
+            }
         }
     }
 }
