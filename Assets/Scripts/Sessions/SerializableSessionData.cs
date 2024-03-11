@@ -24,16 +24,36 @@ namespace TomatechGames.CodeIdiom
     public class SessionData
     {
         public int difficulty;
-        public PhraseGroupData[] phraseGroup;
+        public PhraseGroupData phraseGroup;
         public int timeInSession;
-        public DateTime stratedAtTime;
+        public JsonDateTime startedAtTime;
         public SessionPhraseData[] sessionPhraseData;
     }
     [Serializable]
     public class SessionPhraseData
     {
         public string currentPhrase;
-        public DateTime submittedAtTime;
+        public JsonDateTime submittedAtTime;
         public int submissionDuration;
     }
+
+    //Source: lilotop on stackexchange.com
+    [Serializable]
+    public struct JsonDateTime
+    {
+        public long value;
+        public static implicit operator DateTime(JsonDateTime jdt)
+        {
+            Debug.Log("Converted to time");
+            return DateTime.FromFileTimeUtc(jdt.value);
+        }
+        public static implicit operator JsonDateTime(DateTime dt)
+        {
+            Debug.Log("Converted to JDT");
+            JsonDateTime jdt = new JsonDateTime();
+            jdt.value = dt.ToFileTimeUtc();
+            return jdt;
+        }
+    }
 }
+

@@ -5,10 +5,16 @@ using UnityEngine;
 namespace TomatechGames.CodeIdiom
 {
     //Intended for changing overall game rules based on results from player testing
+    [CreateAssetMenu(menuName ="Config Container")]
     public class ConfigContainer : ScriptableObject
     {
-        public readonly bool lockSlotsToInitialLetter;
-        public readonly bool clearedSlotsGoToInitialSlot;
-        public readonly bool pushLettersWhenTransferringToDeck;
+        [field:SerializeField]
+        public bool LockSlotsToInitialLetter { get; private set; }
+        [field: SerializeField]
+        public bool ClearedSlotsGoToInitialSlot { get; private set; }
+        [field: SerializeField]
+        public bool PushLettersWhenTransferringToDeck { get; private set; }
+        [field: SerializeField]
+        public bool SnapDraggedLetterToCursor { get; private set; }
     }
 }

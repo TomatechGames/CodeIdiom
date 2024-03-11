@@ -12,6 +12,7 @@ namespace TomatechGames.CodeIdiom
 
         public LetterSlot NextSlot { get; private set; }
         public LetterSlot PrevSlot { get; private set; }
+        [field: SerializeField]
         public LetterInstance SlottedLetter { get; private set; }
         public LetterSlotContainer Container { get; private set; }
         public LetterInstance InitialLetter { get; private set; }
@@ -32,20 +33,42 @@ namespace TomatechGames.CodeIdiom
             }
         }
 
+        public bool IsStartOfWord { get; private set; }
         public bool IsEmpty => !SlottedLetter;
 
         //when the slot is instantiated, this should be called to link it to a container
         //if SlottedLetter exists during initialisation, it is stored as InitialLetter
-        public void Initialise(LetterSlotContainer container)
+        public void Initialise(LetterSlotContainer container, bool isStartOfWord = false)
         {
             Container = container;
             InitialLetter = SlottedLetter;
+            IsStartOfWord = isStartOfWord;
+        }
+
+        public void LinkSlots(LetterSlot prevSlot, LetterSlot nextSlot)
+        {
+            NextSlot = nextSlot;
+            PrevSlot = prevSlot;
         }
 
         bool currentDragMatchesSlot = false;
-        public void UpdateCurrentlyDraggedLetter(LetterInstance draggedLetter)
+
+        private void Start()
         {
-            currentDragMatchesSlot = draggedLetter && IsEmpty && CanSlotLetter(draggedLetter);
+            LetterInstance.OnDraggedLetterChanged += draggedLetter =>
+            {
+                currentDragMatchesSlot = 
+                    draggedLetter && 
+                    (
+                        IsEmpty || 
+                        (
+                            draggedLetter.CurrentSlot && 
+                            draggedLetter.CurrentSlot.CanSlotLetter(SlottedLetter)
+                        )
+                    ) && 
+                    CanSlotLetter(draggedLetter);
+                UpdateHighlight();
+            };
         }
 
         //called when a letter starts/stops being dragged
@@ -57,7 +80,7 @@ namespace TomatechGames.CodeIdiom
         //if enabled in the config, this locks slots to only accept the letter it spawned with (if the slot didnt start with a letter, it still accepts all letters)
         public bool CanSlotLetter(LetterInstance newLetter)
         {
-            if (!Config.lockSlotsToInitialLetter)
+            if (!Config.LockSlotsToInitialLetter)
                 return true;
             return !InitialLetter || !newLetter || InitialLetter == newLetter;
         }
@@ -66,15 +89,17 @@ namespace TomatechGames.CodeIdiom
         //if this slot had a letter, slots the existing letter in the incoming letter's previous slot
         public bool TrySetOrSwapSlottedLetter(LetterInstance newLetter)
         {
-            if (!CanSlotLetter(newLetter) || !newLetter)
+            if (!CanSlotLetter(newLetter))
                 return false;
 
-            if (newLetter)
+            if (newLetter && newLetter.CurrentSlot)
             {
-                if(!newLetter.CurrentSlot.CanSlotLetter(SlottedLetter))
+                if (!newLetter.CurrentSlot.CanSlotLetter(SlottedLetter))
                     return false;
                 newLetter.CurrentSlot.SetSlottedLetter(SlottedLetter);
             }
+            else if (SlottedLetter)
+                return false;
 
             SetSlottedLetter(newLetter);
             return true;

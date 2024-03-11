@@ -1,15 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace TomatechGames.CodeIdiom
 {
-    public class LetterInstance : MonoBehaviour
+    public class LetterInstance : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
+        [SerializeField]
+        ConfigContainer config;
+        ConfigContainer Config => config ? config : (config = FindObjectOfType<ConfigContainer>());
+
+        public static event Action<LetterInstance> OnDraggedLetterChanged;
         public char AssociatedChar {  get; private set; }
         public LetterSlot InitialSlot { get; private set; }
         public LetterSlot CurrentSlot { get; private set; }
+        [SerializeField]
+        CanvasGroup canvasGroup;
 
         [SerializeField]
         UnityEvent<string> onLetterChanged;
@@ -30,6 +39,7 @@ namespace TomatechGames.CodeIdiom
                 InitialSlot = CurrentSlot;
             transform.SetParent(CurrentSlot.LetterInstanceParent);
             transform.localPosition = Vector3.zero;
+            transform.localScale = Vector3.one;
             //TODO: animate to new origin
         }
 
@@ -38,6 +48,45 @@ namespace TomatechGames.CodeIdiom
         {
             if (CurrentSlot)
                 CurrentSlot.ClickSlot();
+        }
+
+        Vector3 dragOffset = Vector3.zero;
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            OnDraggedLetterChanged?.Invoke(this);
+            var newParent = transform.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+            transform.SetParent(newParent, true);
+            canvasGroup.blocksRaycasts = false;
+            dragOffset = eventData.pointerCurrentRaycast.worldPosition - transform.position;
+            if (Config.SnapDraggedLetterToCursor)
+                dragOffset = Vector3.zero;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.pointerCurrentRaycast.worldPosition - dragOffset;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            LetterSlot hoveredSlot = null;
+            if (eventData.pointerCurrentRaycast.gameObject)
+            {
+                var searchObject = eventData.pointerCurrentRaycast.gameObject;
+                hoveredSlot = searchObject.GetComponentInParent<LetterSlot>();
+                if (!hoveredSlot)
+                {
+                    var hoveredInstance = searchObject.GetComponentInParent<LetterInstance>();
+                    hoveredSlot = hoveredInstance? hoveredInstance.CurrentSlot : null;
+                }
+            }
+
+            if (hoveredSlot)
+                hoveredSlot.TrySetOrSwapSlottedLetter(this);
+            else
+                SetSlot(CurrentSlot);
+            canvasGroup.blocksRaycasts = true;
+            OnDraggedLetterChanged?.Invoke(null);
         }
     }
 }

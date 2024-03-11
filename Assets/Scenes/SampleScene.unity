@@ -5317,7 +5317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8351675145927006192, guid: 54d1e4962f700b24b839718367770506, type: 3}
       propertyPath: m_Name
-      value: PhraseGroup
+      value: PhraseView
       objectReference: {fileID: 0}
     - target: {fileID: 8356551533301742017, guid: 54d1e4962f700b24b839718367770506, type: 3}
       propertyPath: m_AnchorMax.y

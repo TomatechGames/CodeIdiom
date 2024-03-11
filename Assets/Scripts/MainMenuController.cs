@@ -7,15 +7,21 @@ namespace TomatechGames.CodeIdiom
     public class MainMenuController : MonoBehaviour
     {
         [SerializeField]
+        SessionRunner sessionRunner;
+        [SerializeField]
         PhraseGroupData phraseGroupData;
+
 
         public void StartSesion()
         {
-            Debug.Log("Start buuton works");
+            sessionRunner.CreateSession(phraseGroupData, 0);
+            gameObject.SetActive(false);
         }
+
         public void TryResumeSesion()
         {
-            Debug.Log("Resuume buuton works");
+            sessionRunner.ResumeSession();
+            gameObject.SetActive(false);
         }
     }
 }
