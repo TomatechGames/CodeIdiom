@@ -14,7 +14,10 @@ namespace TomatechGames.CodeIdiom
 
         public void StartSesion()
         {
-            sessionRunner.CreateSession(phraseGroupData, 0);
+            if (sessionRunner.IncompleteSessionExists)
+                sessionRunner.ResumeSession();
+            else
+                sessionRunner.CreateSession(phraseGroupData, 0);
             gameObject.SetActive(false);
         }
 

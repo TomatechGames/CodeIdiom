@@ -18,7 +18,7 @@ namespace TomatechGames.CodeIdiom
         [SerializeField]
         LetterSlot letterSlotPrefab;
         [SerializeField]
-        CanvasGroup canvasGroup;
+        UnityEvent<int> onAnimStateUpdated;
 
         [SerializeField]
         UnityEvent<string> onRealTimeUpdated;
@@ -56,17 +56,8 @@ namespace TomatechGames.CodeIdiom
         //0 is close to left, 1 is open, 2 is close to right
         public void SetState(int state)
         {
-            //TODO: replace with tweens
-            if (state == 1)
-            {
-                canvasGroup.alpha = 1;
-                canvasGroup.blocksRaycasts = true;
-            }
-            else
-            {
-                canvasGroup.alpha = 0;
-                canvasGroup.blocksRaycasts = false;
-            }
+            onAnimStateUpdated.Invoke(state);
+            
         }
 
         public void SubmitPhrase()

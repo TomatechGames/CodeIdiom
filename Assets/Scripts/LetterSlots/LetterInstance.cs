@@ -19,6 +19,10 @@ namespace TomatechGames.CodeIdiom
         public LetterSlot CurrentSlot { get; private set; }
         [SerializeField]
         CanvasGroup canvasGroup;
+        [SerializeField]
+        Transform animatedChild;
+        [SerializeField]
+        UnityEvent animateToOrigin;
 
         [SerializeField]
         UnityEvent<string> onLetterChanged;
@@ -37,9 +41,14 @@ namespace TomatechGames.CodeIdiom
             CurrentSlot = newSlot;
             if (!InitialSlot)
                 InitialSlot = CurrentSlot;
+            Vector3 childPorldPos = animatedChild.position;
+
             transform.SetParent(CurrentSlot.LetterInstanceParent);
             transform.localPosition = Vector3.zero;
             transform.localScale = Vector3.one;
+
+            animatedChild.position = childPorldPos;
+            animateToOrigin.Invoke();
             //TODO: animate to new origin
         }
 

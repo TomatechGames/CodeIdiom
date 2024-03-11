@@ -43,6 +43,8 @@ namespace TomatechGames.CodeIdiom
                     break;
                 OnTimeUpdate?.Invoke(CurrentGameTime.FormatToTimeInSeconds(), ((int)(DateTime.UtcNow - SessionStartTime).TotalSeconds).FormatToTimeInSeconds());
                 await Task.Delay(1000);
+                if (!sessionActive)
+                    break;
                 currentSession.timeInSession++;
             }
             timerRunning = false;
@@ -101,9 +103,22 @@ namespace TomatechGames.CodeIdiom
             canvasGroup.blocksRaycasts = true;
         }
 
+        public void SubmitAll()
+        {
+            foreach (var item in currentControllers)
+            {
+                item.SubmitPhrase();
+            }
+            sessionActive = false;
+            currentSession = null;
+            PlayerPrefs.DeleteKey("session");
+        }
+
         public void SaveSession()
         {
             //update session data
+            if (!sessionActive)
+                return;
             for (int i = 0; i < currentSession.sessionPhraseData.Length; i++)
             {
                 currentSession.sessionPhraseData[i] = currentControllers[i].SessionPhraseData;
@@ -114,11 +129,14 @@ namespace TomatechGames.CodeIdiom
 
         public void ChangePhrase(int difference)
         {
-            var prevController = currentControllers[selectedPhrase];
+            var prevPhrase = selectedPhrase;
             selectedPhrase += difference;
             selectedPhrase = Mathf.Clamp(selectedPhrase, 0, currentControllers.Count - 1);
+            if (prevPhrase == selectedPhrase)
+                return;
 
-            prevController.SetState(difference < 0 ? 0 : 2);
+            var prevController = currentControllers[prevPhrase];
+            prevController.SetState(difference < 0 ? 2 : 0);
             currentControllers[selectedPhrase].SetState(1);
             SaveSession();
         }
