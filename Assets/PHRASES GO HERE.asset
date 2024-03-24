@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PHRASES GO HERE
   m_EditorClassIdentifier: 
   possiblePhraseGroups:
+
   - linkTerm: Disorder
     hint: 
     phrases:
@@ -26,6 +27,204 @@ MonoBehaviour:
       description: 
       ctxLink: 
     - phrase: Disorderly Conduct
+      description: 
+      ctxLink: 
+
+  - linkTerm: Zero
+    hint: 
+    phrases: 
+    - phrase: Green Fingers
+      description: 
+      ctxLink: 
+    - phrase: Carbon Neutral
+      description: 
+      ctxLink: 
+    - phrase: Rising Temperatures
+      description: 
+      ctxLink: 
+    - phrase: Sustainable Living
+      description: 
+      ctxLink: 
+
+  - linkTerm: First
+    hint: 
+    phrases:
+    - phrase: Second World War
+      description: 
+      ctxLink: 
+    - phrase: Third Time Lucky
+      description: 
+      ctxLink: 
+    - phrase: Ten To One Shot
+      description: 
+      ctxLink: 
+    - phrase: Count Dracula
+      description: 
+      ctxLink: 
+
+  - linkTerm: When
+    hint: 
+    phrases:
+    - phrase: No Time To Waste
+      description: 
+      ctxLink: 
+    - phrase: Minute To Midnight
+      description: 
+      ctxLink: 
+    - phrase: Opening Hours
+      description: 
+      ctxLink: 
+    - phrase: Late Night Shopping
+      description: 
+      ctxLink: 
+
+  - linkTerm: Pictures
+    hint: 
+    phrases:
+    - phrase: Script Writing
+      description: 
+      ctxLink: 
+    - phrase: Direct Action
+      description: 
+      ctxLink: 
+    - phrase: Lighten Up
+      description: 
+      ctxLink: 
+    - phrase: Production Company
+      description: 
+      ctxLink: 
+
+  - linkTerm: Train
+    hint: 
+    phrases:
+    - phrase: Core Strength
+      description: 
+      ctxLink: 
+    - phrase: Isometric
+      description: 
+      ctxLink: 
+    - phrase: Aerobic Exercise
+      description: 
+      ctxLink: 
+    - phrase: Fit As A Fiddle
+      description: 
+      ctxLink: 
+
+  - linkTerm: Compare
+    hint: 
+    phrases:
+    - phrase: Great Wall Of China
+      description: 
+      ctxLink: 
+    - phrase: Good Time Charlie
+      description: 
+      ctxLink: 
+    - phrase: All The Best
+      description: 
+      ctxLink: 
+    - phrase: Thats Too Bad
+      description: 
+      ctxLink: 
+
+  - linkTerm: Moves
+    hint: 
+    phrases:
+    - phrase: Step Up To The Mark
+      description: 
+      ctxLink: 
+    - phrase: Walk A Mile In My Shoes
+      description: 
+      ctxLink: 
+    - phrase: Running The Show
+      description: 
+      ctxLink: 
+    - phrase: Out For A Stroll
+      description: 
+      ctxLink: 
+
+  - linkTerm: Shaping
+    hint: 
+    phrases:
+    - phrase: Slim Pickings
+      description: 
+      ctxLink: 
+    - phrase: Fat Chance
+      description: 
+      ctxLink: 
+    - phrase: Healthy Eating
+      description: 
+      ctxLink: 
+    - phrase: High Protein Diet
+      description: 
+      ctxLink: 
+    - phrase: Body Shaming
+      description: 
+      ctxLink: 
+
+  - linkTerm: True
+    hint: 
+    phrases:
+    - phrase: Tell It Like it Is
+      description: 
+      ctxLink: 
+    - phrase: Dont Hold Back
+      description: 
+      ctxLink: 
+    - phrase: Not A Word Of A Lie
+      description: 
+      ctxLink: 
+    - phrase: Speak Freely
+      description: 
+      ctxLink: 
+
+  - linkTerm: Greatness
+    hint: 
+    phrases:
+    - phrase: Where Theres A Will There Is A Way
+      description: 
+      ctxLink: 
+    - phrase: Alls Well That Ends Well
+      description: 
+      ctxLink: 
+    - phrase: The Cream Of The Crop
+      description: 
+      ctxLink: 
+    - phrase: Cream Always Rises To The Top
+      description: 
+      ctxLink: 
+
+  - linkTerm: Conversation
+    hint: 
+    phrases:
+    - phrase: Get To The Point
+      description: 
+      ctxLink: 
+    - phrase: Cut To The Chase
+      description: 
+      ctxLink: 
+    - phrase: Spit It Out Man
+      description: 
+      ctxLink: 
+    - phrase: Call A spade A Spade
+      description: 
+      ctxLink: 
+
+  - linkTerm: Growth
+    hint: 
+    phrases:
+    - phrase: Born To Be Wild
+      description: 
+      ctxLink: 
+    - phrase: Elixir Of Youth
+      description: 
+      ctxLink: 
+    - phrase: As Old As The Hills
+      description: 
+      ctxLink: 
+    - phrase: The age Of Aquarius
+      description: 
+      ctxLink: 
+    - phrase: Age Before Beauty
       description: 
       ctxLink: 
 
