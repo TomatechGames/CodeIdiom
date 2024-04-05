@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: PHRASES GO HERE
   m_EditorClassIdentifier: 
   possiblePhraseGroups:
-
   - linkTerm: Disorder
     hint: 
     phrases:
@@ -29,7 +28,6 @@ MonoBehaviour:
     - phrase: Disorderly Conduct
       description: 
       ctxLink: 
-
   - linkTerm: Zero
     hint: 
     phrases: 
@@ -45,7 +43,6 @@ MonoBehaviour:
     - phrase: Sustainable Living
       description: 
       ctxLink: 
-
   - linkTerm: First
     hint: 
     phrases:
@@ -61,7 +58,6 @@ MonoBehaviour:
     - phrase: Count Dracula
       description: 
       ctxLink: 
-
   - linkTerm: When
     hint: 
     phrases:
@@ -77,7 +73,6 @@ MonoBehaviour:
     - phrase: Late Night Shopping
       description: 
       ctxLink: 
-
   - linkTerm: Pictures
     hint: 
     phrases:
@@ -93,7 +88,6 @@ MonoBehaviour:
     - phrase: Production Company
       description: 
       ctxLink: 
-
   - linkTerm: Train
     hint: 
     phrases:
@@ -109,7 +103,6 @@ MonoBehaviour:
     - phrase: Fit As A Fiddle
       description: 
       ctxLink: 
-
   - linkTerm: Compare
     hint: 
     phrases:
@@ -125,7 +118,6 @@ MonoBehaviour:
     - phrase: Thats Too Bad
       description: 
       ctxLink: 
-
   - linkTerm: Moves
     hint: 
     phrases:
@@ -141,7 +133,6 @@ MonoBehaviour:
     - phrase: Out For A Stroll
       description: 
       ctxLink: 
-
   - linkTerm: Shaping
     hint: 
     phrases:
@@ -160,7 +151,6 @@ MonoBehaviour:
     - phrase: Body Shaming
       description: 
       ctxLink: 
-
   - linkTerm: True
     hint: 
     phrases:
@@ -176,7 +166,6 @@ MonoBehaviour:
     - phrase: Speak Freely
       description: 
       ctxLink: 
-
   - linkTerm: Greatness
     hint: 
     phrases:
@@ -192,7 +181,6 @@ MonoBehaviour:
     - phrase: Cream Always Rises To The Top
       description: 
       ctxLink: 
-
   - linkTerm: Conversation
     hint: 
     phrases:
@@ -208,7 +196,6 @@ MonoBehaviour:
     - phrase: Call A spade A Spade
       description: 
       ctxLink: 
-
   - linkTerm: Growth
     hint: 
     phrases:
@@ -227,7 +214,6 @@ MonoBehaviour:
     - phrase: Age Before Beauty
       description: 
       ctxLink: 
-
   - linkTerm: 
     hint: 
     phrases:
