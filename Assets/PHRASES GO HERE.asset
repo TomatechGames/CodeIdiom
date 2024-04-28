@@ -30,7 +30,7 @@ MonoBehaviour:
       ctxLink: 
   - linkTerm: Zero
     hint: 
-    phrases: 
+    phrases:
     - phrase: Green Fingers
       description: 
       ctxLink: 
@@ -212,20 +212,5 @@ MonoBehaviour:
       description: 
       ctxLink: 
     - phrase: Age Before Beauty
-      description: 
-      ctxLink: 
-  - linkTerm: 
-    hint: 
-    phrases:
-    - phrase: 
-      description: 
-      ctxLink: 
-    - phrase: 
-      description: 
-      ctxLink: 
-    - phrase: 
-      description: 
-      ctxLink: 
-    - phrase: 
       description: 
       ctxLink: 

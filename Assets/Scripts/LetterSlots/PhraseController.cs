@@ -21,6 +21,9 @@ namespace TomatechGames.CodeIdiom
         UnityEvent<int> onAnimStateUpdated;
 
         [SerializeField]
+        UnityEvent<string, string> onPreviewPanelDataChanged;
+
+        [SerializeField]
         UnityEvent<string> onRealTimeUpdated;
         [SerializeField]
         UnityEvent<string> onGameTimeUpdated;
@@ -53,11 +56,18 @@ namespace TomatechGames.CodeIdiom
             };
         }
 
+        public void UpdatePreviewPanel()
+        {
+            var phrase = ReadCurrentPhrase();
+            var remainder = letterDeck.GetDeckLetters();
+            Debug.Log(phrase+" <> "+remainder);
+            onPreviewPanelDataChanged?.Invoke(phrase, remainder);
+        }
+
         //0 is close to left, 1 is open, 2 is close to right
         public void SetState(int state)
         {
             onAnimStateUpdated.Invoke(state);
-            
         }
 
         public void SubmitPhrase()

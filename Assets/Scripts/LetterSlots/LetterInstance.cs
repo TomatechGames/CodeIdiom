@@ -27,6 +27,8 @@ namespace TomatechGames.CodeIdiom
         [SerializeField]
         UnityEvent<string> onLetterChanged;
 
+        public event Action onReslotted;
+
         //when the letter is instantiated, this should be called to assign it a char
         //if CurrentSlot exists during initialisation, it is stored as InitialSlot
         public void Initialise(char associatedChar)
@@ -38,6 +40,7 @@ namespace TomatechGames.CodeIdiom
 
         public void SetSlot(LetterSlot newSlot)
         {
+            bool isNew = newSlot != CurrentSlot;
             CurrentSlot = newSlot;
             if (!InitialSlot)
                 InitialSlot = CurrentSlot;
@@ -49,6 +52,8 @@ namespace TomatechGames.CodeIdiom
 
             animatedChild.position = childPorldPos;
             animateToOrigin.Invoke();
+            if (isNew)
+                onReslotted?.Invoke();
             //TODO: animate to new origin
         }
 

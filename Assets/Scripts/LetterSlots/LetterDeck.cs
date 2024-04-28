@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace TomatechGames.CodeIdiom
@@ -30,8 +31,10 @@ namespace TomatechGames.CodeIdiom
                 var letterSlot = Instantiate(letterSlotPrefab, slotParent);
                 var letterInstance = Instantiate(letterInstancePrefab, slotParent);
                 letterInstance.Initialise(jumbledLetters[i]);
+                letterInstance.onReslotted += phraseController.UpdatePreviewPanel;
                 letterSlot.TrySetOrSwapSlottedLetter(letterInstance);
                 letterSlot.Initialise(this);
+                
 
                 if (prevSlot)
                 {
@@ -47,6 +50,19 @@ namespace TomatechGames.CodeIdiom
                 prevSlot.LinkSlots(twoSlotsAgo, null);
                 LastSlot = prevSlot;
             }
+        }
+
+        public string GetDeckLetters()
+        {
+            StringBuilder builder = new();
+            var currentSlot = FirstSlot;
+            while (currentSlot)
+            {
+                if (currentSlot.SlottedLetter)
+                    builder.Append(currentSlot.SlottedLetter.AssociatedChar);
+                currentSlot = currentSlot.NextSlot;
+            }
+            return builder.ToString();
         }
 
         public LetterInstance GetFirstAppearanceOfLetter(char withChar)
