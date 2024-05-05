@@ -56,8 +56,13 @@ namespace TomatechGames.CodeIdiom
             };
         }
 
+        bool isPreviewReady;
         public void UpdatePreviewPanel()
         {
+            if (!isPreviewReady)
+            {
+                return;
+            }
             var phrase = ReadCurrentPhrase();
             var remainder = letterDeck.GetDeckLetters();
             Debug.Log(phrase+" <> "+remainder);
@@ -158,6 +163,8 @@ namespace TomatechGames.CodeIdiom
                 prevSlot.LinkSlots(twoSlotsAgo, null);
                 LastSlot = prevSlot;
             }
+            isPreviewReady = true;
+            UpdatePreviewPanel();
         }
 
         public override void OnSlotClicked(LetterSlot clickedSlot)
