@@ -10,6 +10,13 @@ namespace TomatechGames.CodeIdiom
 
     public class SessionRunner : MonoBehaviour
     {
+        public static SessionRunner Instance { get; private set; }
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         public static event Action<string, string> OnTimeUpdate;
 
         [SerializeField]
@@ -92,11 +99,10 @@ namespace TomatechGames.CodeIdiom
 
                 var spawnedController = Instantiate(phrasePanelPrefab, phrasePanelParent);
                 spawnedController.Initialise(phraseData, sessionPhraseData, phraseData.phrase.JumbleLetters());
-                spawnedController.SetState(2);
 
                 currentControllers.Add(spawnedController);
             }
-            currentControllers[0].SetState(1);
+            currentControllers[0].SetFirst();
             TimerLoop();
             SaveSession();
             canvasGroup.alpha = 1;
@@ -127,19 +133,21 @@ namespace TomatechGames.CodeIdiom
             PlayerPrefs.SetString("session", JsonUtility.ToJson(currentSession));
         }
 
-        public void ChangePhrase(int difference)
-        {
-            var prevPhrase = selectedPhrase;
-            selectedPhrase += difference;
-            selectedPhrase = Mathf.Clamp(selectedPhrase, 0, currentControllers.Count - 1);
-            if (prevPhrase == selectedPhrase)
-                return;
+        //public void ChangePhrase(int difference)
+        //{
+        //    var prevPhrase = selectedPhrase;
+        //    selectedPhrase += difference;
+        //    selectedPhrase = Mathf.Clamp(selectedPhrase, 0, currentControllers.Count - 1);
+        //    if (prevPhrase == selectedPhrase)
+        //        return;
 
-            var prevController = currentControllers[prevPhrase];
-            prevController.SetState(difference < 0 ? 2 : 0);
-            currentControllers[selectedPhrase].SetState(1);
-            SaveSession();
-        }
+        //    var prevController = currentControllers[prevPhrase];
+        //    prevController.SetFirst(difference < 0 ? 2 : 0);
+        //    currentControllers[selectedPhrase].SetFirst(1);
+        //    SaveSession();
+        //}
+
+        public void SetInteractable(bool value) => canvasGroup.interactable = value;
 
         private void OnApplicationPause(bool pause)
         {

@@ -79,10 +79,12 @@ namespace TomatechGames.CodeIdiom
         public void OnDrag(PointerEventData eventData)
         {
             transform.position = eventData.pointerCurrentRaycast.worldPosition - dragOffset;
+            SessionRunner.Instance.SetInteractable(false);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            SessionRunner.Instance.SetInteractable(true);
             LetterSlot hoveredSlot = null;
             if (eventData.pointerCurrentRaycast.gameObject)
             {

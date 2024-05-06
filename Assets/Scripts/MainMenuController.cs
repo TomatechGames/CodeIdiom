@@ -79,6 +79,12 @@ namespace TomatechGames.CodeIdiom
             sessionRunner.ResumeSession();
             gameObject.SetActive(false);
         }
+
+        public void StartSessionTesting(int index)
+        {
+            sessionRunner.CreateSession(phraseGroupProvider.GetByIndex(index), 0);
+            gameObject.SetActive(false);
+        }
     }
 
     public abstract class BasePhraseGroupProvider : ScriptableObject 
@@ -86,5 +92,7 @@ namespace TomatechGames.CodeIdiom
         public abstract bool IsNewPhraseGroupAvailable { get; }
         public abstract PhraseGroupData CurrentPhraseGroup { get; }
         public virtual PhraseGroupData[] RecentPhraseGroups { get; }
+
+        public virtual PhraseGroupData GetByIndex(int index) => CurrentPhraseGroup;
     }
 }

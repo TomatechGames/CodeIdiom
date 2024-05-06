@@ -18,7 +18,7 @@ namespace TomatechGames.CodeIdiom
         [SerializeField]
         LetterSlot letterSlotPrefab;
         [SerializeField]
-        UnityEvent<int> onAnimStateUpdated;
+        UnityEvent onFirstController;
 
         [SerializeField]
         UnityEvent<string, string> onPreviewPanelDataChanged;
@@ -70,9 +70,9 @@ namespace TomatechGames.CodeIdiom
         }
 
         //0 is close to left, 1 is open, 2 is close to right
-        public void SetState(int state)
+        public void SetFirst()
         {
-            onAnimStateUpdated.Invoke(state);
+            onFirstController.Invoke();
         }
 
         public void SubmitPhrase()

@@ -24,5 +24,9 @@ namespace TomatechGames.CodeIdiom
                 return null;
             }
         }
+        public override PhraseGroupData GetByIndex(int index)
+        {
+            return possiblePhraseGroups[index % possiblePhraseGroups.Count];
+        }
     }
 }
