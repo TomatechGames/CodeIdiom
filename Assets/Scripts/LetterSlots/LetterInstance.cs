@@ -26,16 +26,27 @@ namespace TomatechGames.CodeIdiom
 
         [SerializeField]
         UnityEvent<string> onLetterChanged;
+        [SerializeField]
+        UnityEvent onLetterLocked;
 
         public event Action onReslotted;
 
+        public bool isLocked { get; private set; } = false;
+
         //when the letter is instantiated, this should be called to assign it a char
         //if CurrentSlot exists during initialisation, it is stored as InitialSlot
-        public void Initialise(char associatedChar)
+        public void Initialise(char associatedChar, bool isLocked = false)
         {
             AssociatedChar = associatedChar;
             onLetterChanged?.Invoke(AssociatedChar.ToString());
             InitialSlot = CurrentSlot;
+        }
+
+        public void SetLocked()
+        {
+            isLocked = true;
+            //make visual changes to signify locked state
+            onLetterLocked?.Invoke();
         }
 
         public void SetSlot(LetterSlot newSlot)
@@ -54,19 +65,21 @@ namespace TomatechGames.CodeIdiom
             animateToOrigin.Invoke();
             if (isNew)
                 onReslotted?.Invoke();
-            //TODO: animate to new origin
         }
 
         //forwards the click event of a letter to it's slot
         public void ClickSlot()
         {
-            if (CurrentSlot)
-                CurrentSlot.ClickSlot();
+            SetLocked();
+            //if (CurrentSlot)
+                //CurrentSlot.ClickSlot();
         }
 
         Vector3 dragOffset = Vector3.zero;
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (isLocked)
+                return;
             OnDraggedLetterChanged?.Invoke(this);
             var newParent = transform.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
             transform.SetParent(newParent, true);
@@ -78,12 +91,16 @@ namespace TomatechGames.CodeIdiom
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (isLocked)
+                return;
             transform.position = eventData.pointerCurrentRaycast.worldPosition - dragOffset;
             SessionRunner.Instance.SetInteractable(false);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (isLocked)
+                return;
             SessionRunner.Instance.SetInteractable(true);
             LetterSlot hoveredSlot = null;
             if (eventData.pointerCurrentRaycast.gameObject)
@@ -97,9 +114,8 @@ namespace TomatechGames.CodeIdiom
                 }
             }
 
-            if (hoveredSlot)
-                hoveredSlot.TrySetOrSwapSlottedLetter(this);
-            else
+            bool success = hoveredSlot && hoveredSlot.TrySetOrSwapSlottedLetter(this);
+            if (!success)
                 SetSlot(CurrentSlot);
             canvasGroup.blocksRaycasts = true;
             OnDraggedLetterChanged?.Invoke(null);

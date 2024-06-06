@@ -44,16 +44,22 @@ namespace TomatechGames.CodeIdiom
             }
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            SessionRunner.OnTimeUpdate += (gameTime, realTime) =>
-            {
-                if (sessionPhraseData.submissionDuration > 0)
-                    return;
+            SessionRunner.OnTimeUpdate += UpdateTimeText;
+        }
+        private void OnDisable()
+        {
+            SessionRunner.OnTimeUpdate -= UpdateTimeText;
+        }
 
-                onRealTimeUpdated.Invoke(realTime);
-                onGameTimeUpdated.Invoke(gameTime);
-            };
+        void UpdateTimeText(string gameTime, string realTime)
+        {
+            if (sessionPhraseData is null || sessionPhraseData.submissionDuration > 0)
+                return;
+
+            onRealTimeUpdated.Invoke(realTime);
+            onGameTimeUpdated.Invoke(gameTime);
         }
 
         bool isPreviewReady;

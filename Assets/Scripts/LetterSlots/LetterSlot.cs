@@ -80,9 +80,9 @@ namespace TomatechGames.CodeIdiom
         //if enabled in the config, this locks slots to only accept the letter it spawned with (if the slot didnt start with a letter, it still accepts all letters)
         public bool CanSlotLetter(LetterInstance newLetter)
         {
-            if (!Config.LockSlotsToInitialLetter)
-                return true;
-            return !InitialLetter || !newLetter || InitialLetter == newLetter;
+            bool blockDueToLetterLock = (newLetter && newLetter.isLocked) || (SlottedLetter && SlottedLetter.isLocked);
+            bool blockDueToInitialLetterMismatch = Config.LockSlotsToInitialLetter && InitialLetter && newLetter && InitialLetter != newLetter;
+            return !blockDueToLetterLock && !blockDueToInitialLetterMismatch;
         }
 
         //if this slot can hold the incoming letter, slots the incoming letter.
@@ -105,13 +105,16 @@ namespace TomatechGames.CodeIdiom
             return true;
         }
 
-        //assumes that the letter has been validated
+        //assumes that latter can be slotted
         void SetSlottedLetter(LetterInstance newLetter)
         {
-            SlottedLetter = newLetter;
-            if (!SlottedLetter)
+            if (!newLetter)
+            {
+                SlottedLetter = null;
                 return;
-            SlottedLetter.SetSlot(this);
+            }
+            newLetter.SetSlot(this);
+            SlottedLetter = newLetter;
         }
 
         //null indicates that none of the next/previous slots are empty
