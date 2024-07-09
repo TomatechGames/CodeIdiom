@@ -17,11 +17,10 @@ namespace TomatechGames.CodeIdiom
             {
                 if (IsNewPhraseGroupAvailable)
                 {
-                    int currentDay = (DateTime.UtcNow.Date - DateTime.UnixEpoch.Date).Days % possiblePhraseGroups.Count;
                     PlayerPrefs.SetString("listLastRetrievedAt", JsonUtility.ToJson((JsonDateTime)DateTime.UtcNow.Date));
-                    return possiblePhraseGroups[currentDay];
                 }
-                return null;
+                int currentDay = (DateTime.UtcNow.Date - DateTime.UnixEpoch.Date).Days % possiblePhraseGroups.Count;
+                return possiblePhraseGroups[currentDay];
             }
         }
         public override PhraseGroupData GetByIndex(int index)
